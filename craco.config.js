@@ -6,4 +6,12 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  reactScriptsVersion: 'react-scripts',
+  style: {
+    css: {
+      loaderOptions: () => {
+        return { url: false };
+      },
+    },
+  },
 };
