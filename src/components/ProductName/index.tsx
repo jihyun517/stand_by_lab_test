@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import splitNameByComma from '@/utils/split-name-by-comma';
 import cx from '@/utils/style-helper';
 
@@ -6,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-const ProductName = (props: Props) => {
+const ProductName = (props: Props): ReactElement => {
   const { name, className } = props;
 
   const { firstLine, secondLine } = splitNameByComma(name);

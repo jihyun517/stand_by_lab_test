@@ -1,8 +1,13 @@
+import { ReactElement } from 'react';
+
 import Shopping from './Shopping';
-const MainPage = () => {
+import Cart from './Cart';
+
+const MainPage = (): ReactElement => {
   return (
-    <div className={'flex justify-center'}>
+    <div className={'flex flex-col items-center gap-5'}>
       <Shopping />
+      <Cart />
     </div>
   );
 };

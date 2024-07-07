@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import numToMoney from '@/utils/num-to-money';
 import cx from '@/utils/style-helper';
 
@@ -13,7 +15,7 @@ interface Props {
   className?: string;
 }
 
-const ProductCard = (props: Props) => {
+const ProductCard = (props: Props): ReactElement => {
   const { product, className } = props;
 
   return (
