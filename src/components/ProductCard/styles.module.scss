@@ -7,20 +7,3 @@
 
   object-fit: cover;
 }
-
-.CartIcon {
-  bottom: 0.8rem;
-  right: 0.8rem;
-
-  border-radius: 50%;
-
-  position: absolute;
-  width: 2.2rem;
-  height: 2.2rem;
-
-  background-color: gray;
-  background-image: url(/Images/btn_shopping_bag.png);
-  background-size: 70%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
