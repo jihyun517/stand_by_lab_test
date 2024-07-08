@@ -1,11 +1,17 @@
 import React from 'react';
 import './App.css';
+
+import { ShopProvider } from '@/context';
+
 import MainPage from './screens/MainPage';
+
 function App() {
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+    <ShopProvider>
+      <div className="App">
+        <MainPage />
+      </div>
+    </ShopProvider>
   );
 }
 
