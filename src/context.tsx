@@ -41,48 +41,37 @@ const ShopOperatorsContext = createContext<Operator>(DEFAULT_OPERATOR);
 export const ShopProvider = (props: Props): ReactElement => {
   const { children } = props;
 
-  const [state, setState] = useState<State>(DEFAULT_STATE);
+  const [products] = useState<Product[]>(DEFAULT_STATE.products);
+  const [cart, setCart] = useState<CartItem[]>(DEFAULT_STATE.cart);
 
   const addToCart = (product: Product) => {
-    setState((prev) => {
-      const CartItem = prev.cart.find((item) => item.product.id === product.id);
-      if (CartItem) {
-        return {
-          ...prev,
-          cart: prev.cart.map((item) => (item.product.id === product.id ? { ...item, count: item.count + 1 } : item)),
-        };
+    setCart((prevCart) => {
+      const cartItem = prevCart.find((item) => item.product.id === product.id);
+      if (cartItem) {
+        return prevCart.map((item) => (item.product.id === product.id ? { ...item, count: item.count + 1 } : item));
       }
-      return {
-        ...prev,
-        cart: [...prev.cart, { product, count: 1 }],
-      };
+      return [...prevCart, { product, count: 1 }];
     });
   };
 
   const removeFromCart = (productId: number) => {
-    setState((prev) => ({
-      ...prev,
-      cart: prev.cart.filter((item) => item.product.id !== productId),
-    }));
+    setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
   };
 
   const increaseCount = (productId: number) => {
-    setState((prev) => ({
-      ...prev,
-      cart: prev.cart.map((item) => (item.product.id === productId ? { ...item, count: item.count + 1 } : item)),
-    }));
+    setCart((prevCart) => prevCart.map((item) => (item.product.id === productId ? { ...item, count: item.count + 1 } : item)));
   };
 
   const decreaseCount = (productId: number) => {
-    setState((prev) => ({
-      ...prev,
-      cart: prev.cart.map((item) => (item.product.id === productId && item.count > 1 ? { ...item, count: item.count - 1 } : item)),
-    }));
+    setCart((prevCart) => prevCart.map((item) => (item.product.id === productId && item.count > 1 ? { ...item, count: item.count - 1 } : item)));
   };
+
+  const state: State = { products, cart };
+  const operator: Operator = { addToCart, removeFromCart, increaseCount, decreaseCount };
 
   return (
     <ShopStateContext.Provider value={state}>
-      <ShopOperatorsContext.Provider value={{ addToCart, removeFromCart, increaseCount, decreaseCount }}>{children}</ShopOperatorsContext.Provider>
+      <ShopOperatorsContext.Provider value={operator}>{children}</ShopOperatorsContext.Provider>
     </ShopStateContext.Provider>
   );
 };
