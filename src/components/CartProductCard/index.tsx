@@ -26,7 +26,7 @@ const CartProductCard = (props: Props): ReactElement => {
         <ProductName name={cartItem.product.name} className={'text-sm font-bold ml-16'} />
       </div>
       <CountOperator cartItem={cartItem} />
-      <p className={'w-[9rem] flex justify-center text-sm font-bold'}>{numToMoney(cartItem.product.price)}원</p>
+      <p className={'w-[9rem] flex justify-center text-sm font-bold'}>{numToMoney(cartItem.product.price * cartItem.count)}원</p>
       <RemoveFromCartButton cartItem={cartItem} />
     </div>
   );
