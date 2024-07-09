@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, ReactElement } from 'react';
+import React, { createContext, useContext, useState, ReactNode, ReactElement, useCallback, useMemo } from 'react';
 import { Product, CartItem } from '@/types';
 
 interface State {
@@ -46,7 +46,7 @@ export const ShopProvider = (props: Props): ReactElement => {
   const [products] = useState<Product[]>(DEFAULT_STATE.products);
   const [cart, setCart] = useState<CartItem[]>(DEFAULT_STATE.cart);
 
-  const addToCart = (product: Product) => {
+  const addToCart = useCallback((product: Product) => {
     setCart((prevCart) => {
       const cartItem = prevCart.find((item) => item.product.id === product.id);
       if (cartItem) {
@@ -54,26 +54,35 @@ export const ShopProvider = (props: Props): ReactElement => {
       }
       return [...prevCart, { product, count: 1 }];
     });
-  };
+  }, []);
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = useCallback((productId: number) => {
     setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
-  };
+  }, []);
 
-  const increaseCount = (productId: number) => {
+  const increaseCount = useCallback((productId: number) => {
     setCart((prevCart) => prevCart.map((item) => (item.product.id === productId ? { ...item, count: item.count + 1 } : item)));
-  };
+  }, []);
 
-  const decreaseCount = (productId: number) => {
+  const decreaseCount = useCallback((productId: number) => {
     setCart((prevCart) => prevCart.map((item) => (item.product.id === productId && item.count > 1 ? { ...item, count: item.count - 1 } : item)));
-  };
+  }, []);
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCart([]);
-  };
+  }, []);
 
   const state: State = { products, cart };
-  const operator: Operator = { addToCart, removeFromCart, increaseCount, decreaseCount, clearCart };
+  const operator = useMemo(
+    (): Operator => ({
+      addToCart,
+      removeFromCart,
+      increaseCount,
+      decreaseCount,
+      clearCart,
+    }),
+    [addToCart, removeFromCart, increaseCount, decreaseCount, clearCart]
+  );
 
   return (
     <ShopStateContext.Provider value={state}>
