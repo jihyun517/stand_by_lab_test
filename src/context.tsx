@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, ReactElement, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, ReactNode, ReactElement, useCallback, useMemo, useEffect } from 'react';
 import { Product, CartItem } from '@/types';
 
 interface State {
@@ -44,7 +44,15 @@ export const ShopProvider = (props: Props): ReactElement => {
   const { children } = props;
 
   const [products] = useState<Product[]>(DEFAULT_STATE.products);
-  const [cart, setCart] = useState<CartItem[]>(DEFAULT_STATE.cart);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : DEFAULT_STATE.cart;
+  });
+
+  // 상태 업데이트 시 로컬스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = useCallback((product: Product) => {
     setCart((prevCart) => {
