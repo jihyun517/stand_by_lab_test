@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import numToMoney from '@/utils/num-to-money';
 import cx from '@/utils/style-helper';
@@ -15,7 +15,7 @@ interface Props {
   className?: string;
 }
 
-const ProductCard = (props: Props): ReactElement => {
+const ProductCard = memo((props: Props): ReactElement => {
   const { product, className } = props;
 
   return (
@@ -30,6 +30,6 @@ const ProductCard = (props: Props): ReactElement => {
       <p className={'text-sm font-extrabold mt-5'}>{numToMoney(product.price)}원</p>
     </div>
   );
-};
+});
 
 export default ProductCard;
