@@ -18,8 +18,12 @@ interface Props {
 const ProductCard = memo((props: Props): ReactElement => {
   const { product, className } = props;
 
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData('product', JSON.stringify(product));
+  };
+
   return (
-    <div className={cx('w-52 h-80 flex flex-col items-start', className)}>
+    <div className={cx('w-52 h-80 flex flex-col items-start', className)} draggable onDragStart={handleDragStart}>
       <div className={'relative w-full h-52 '}>
         <img src={product.imageURL} alt={product.name} className={styles.ProductImage} />
         <AddToCartButton product={product} />
