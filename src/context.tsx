@@ -11,6 +11,7 @@ interface Operator {
   removeFromCart: (productId: number) => void;
   increaseCount: (productId: number) => void;
   decreaseCount: (productId: number) => void;
+  clearCart: () => void;
 }
 
 interface Props {
@@ -33,6 +34,7 @@ const DEFAULT_OPERATOR: Operator = {
   removeFromCart() {},
   increaseCount() {},
   decreaseCount() {},
+  clearCart() {},
 };
 
 const ShopStateContext = createContext<State>(DEFAULT_STATE);
@@ -66,8 +68,12 @@ export const ShopProvider = (props: Props): ReactElement => {
     setCart((prevCart) => prevCart.map((item) => (item.product.id === productId && item.count > 1 ? { ...item, count: item.count - 1 } : item)));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const state: State = { products, cart };
-  const operator: Operator = { addToCart, removeFromCart, increaseCount, decreaseCount };
+  const operator: Operator = { addToCart, removeFromCart, increaseCount, decreaseCount, clearCart };
 
   return (
     <ShopStateContext.Provider value={state}>

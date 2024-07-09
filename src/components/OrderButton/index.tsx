@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { useShopOperators } from '@/context';
+
 import numToMoney from '@/utils/num-to-money';
 
 interface Props {
@@ -9,8 +11,11 @@ interface Props {
 const OrderButton = (props: Props): ReactElement => {
   const { finalAmount } = props;
 
+  const { clearCart } = useShopOperators();
+
   const onClick = () => {
     alert(`김지현님 ${numToMoney(finalAmount)}원이 결제완료 되었습니다.`);
+    clearCart();
   };
 
   return (
