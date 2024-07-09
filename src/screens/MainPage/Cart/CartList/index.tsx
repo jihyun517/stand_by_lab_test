@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useRef, useCallback } from 'react';
 
 import { useShopState } from '@/context';
 import { useShopOperators } from '@/context';
@@ -11,25 +11,33 @@ const CartList = (): ReactElement => {
 
   const [isDragOver, setIsDragOver] = useState(false);
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const dragTracker = useRef(0); // drag Enter, Leave에 따른 횟수를 추적
+
+  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragOver(false);
+    dragTracker.current = 0; // drop이 완료되었으므로 dragTracker 초기화
 
     const productData = e.dataTransfer.getData('product');
     if (productData) {
       const product = JSON.parse(productData);
       addToCart(product);
     }
-  };
+  }, []);
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (!isDragOver) setIsDragOver(true);
-  };
+  }, []);
 
-  const handleDragLeave = () => {
-    setIsDragOver(false);
-  };
+  const handleDragEnter = useCallback(() => {
+    dragTracker.current++; // Enter 실행될 때마다 ++
+    if (dragTracker.current === 1) setIsDragOver(true); // 맨 처음 Enter일 때 setIsDragOver(true)
+  }, []);
+
+  const handleDragLeave = useCallback(() => {
+    dragTracker.current--; // Leave 실행될 때마다 --
+    if (dragTracker.current === 0) setIsDragOver(false); // 맨 처음 Enter 였던 요소까지 Leave 되어 dragTracker가 0이 되었을 때 setIsDragOver(false)
+  }, []);
 
   return (
     <div
@@ -37,6 +45,7 @@ const CartList = (): ReactElement => {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
+      onDragEnter={handleDragEnter}
     >
       <div className={'h-12 flex items-center border-b-[1px] border-gray-200 text-sm font-extrabold'}>
         <p className={'w-[32rem] flex justify-center'}>상품정보</p>
