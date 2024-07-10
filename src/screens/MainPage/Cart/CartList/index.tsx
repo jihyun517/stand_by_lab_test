@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
 import { useShopState } from '@/context';
-import { useShopOperators } from '@/context';
 
 import { useDragAndDrop } from '@/hooks/useDragAndDrop';
 
@@ -9,8 +8,7 @@ import CartProductCard from '@/components/CartProductCard';
 
 const CartList = (): ReactElement => {
   const { cart } = useShopState();
-  const { addToCart } = useShopOperators();
-  const { isDragOver, handleDrop, handleDragOver, handleDragEnter, handleDragLeave } = useDragAndDrop({ addToCart });
+  const { isDragOver, handleDrop, handleDragOver, handleDragEnter, handleDragLeave } = useDragAndDrop();
 
   return (
     <div
