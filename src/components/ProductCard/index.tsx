@@ -22,8 +22,13 @@ const ProductCard = memo((props: Props): ReactElement => {
   const { handleDragStart } = useDragAndDrop();
 
   return (
-    <div className={cx('w-52 h-80 flex flex-col items-start', className)} draggable onDragStart={(e) => handleDragStart(e, product)}>
-      <div className={'relative w-full h-52 '}>
+    // 반응형 대응
+    <div
+      className={cx('flex flex-col items-start xl:w-52 lg:w-44 xl:h-80 lg:h-72 w-44 h-72 ', className)}
+      draggable
+      onDragStart={(e) => handleDragStart(e, product)}
+    >
+      <div className={'relative w-full xl:h-52 lg:h-44 h-44'}>
         <img src={product.imageURL} alt={product.name} className={styles.ProductImage} />
         <AddToCartButton product={product} />
       </div>
