@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import numToMoney from '@/utils/num-to-money';
 import cx from '@/utils/style-helper';
@@ -16,9 +16,10 @@ interface Props {
   className?: string;
 }
 
-const CartProductCard = (props: Props): ReactElement => {
+const CartProductCard = memo((props: Props): ReactElement => {
   const { cartItem, className } = props;
 
+  console.log('card');
   return (
     <div className={cx('h-32 flex items-center border-b-[1px] border-gray-200', className)}>
       {/* 반응형 대응 */}
@@ -31,6 +32,6 @@ const CartProductCard = (props: Props): ReactElement => {
       <RemoveFromCartButton cartItem={cartItem} />
     </div>
   );
-};
+});
 
 export default CartProductCard;
