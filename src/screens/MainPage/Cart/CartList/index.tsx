@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
-import { useShopState } from '@/context';
+import { useCartState } from '@/context';
 
 import { useDragAndDrop } from '@/hooks/useDragAndDrop';
 
 import CartProductCard from '@/components/CartProductCard';
 
 const CartList = (): ReactElement => {
-  const { cart } = useShopState();
+  const { cart } = useCartState();
   const { isDragOver, handleDrop, handleDragOver, handleDragEnter, handleDragLeave } = useDragAndDrop();
 
   return (

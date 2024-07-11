@@ -1,11 +1,12 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
-import { useShopState } from '@/context';
+import { useProductsState } from '@/context';
 
 import ProductCard from '@/components/ProductCard';
 
 const Shopping = (): ReactElement => {
-  const { products } = useShopState();
+  console.log('Shopping');
+  const { products } = useProductsState();
 
   return (
     <div className={'w-full flex justify-center'}>

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useShopOperators } from '@/context';
+import { useCartOperator } from '@/context';
 
 import { CartItem } from '@/types';
 
@@ -13,7 +13,7 @@ interface Props {
 const RemoveFromCartButton = (props: Props): ReactElement => {
   const { cartItem } = props;
 
-  const { removeFromCart } = useShopOperators();
+  const { removeFromCart } = useCartOperator();
 
   return <button className={styles.DeleteIcon} onClick={() => removeFromCart(cartItem.product.id)} />;
 };

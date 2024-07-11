@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useShopOperators } from '@/context';
+import { useCartOperator } from '@/context';
 
 import { Product } from '@/types';
 
@@ -13,7 +13,7 @@ interface Props {
 const AddToCartButton = (props: Props): ReactElement => {
   const { product } = props;
 
-  const { addToCart } = useShopOperators();
+  const { addToCart } = useCartOperator();
 
   return <button className={styles.CartIcon} onClick={() => addToCart(product)} />;
 };

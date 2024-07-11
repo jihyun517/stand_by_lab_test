@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 
 import { Product } from '@/types';
 
-import { useShopOperators } from '@/context';
+import { useCartOperator } from '@/context';
 
 interface DragAndDropHandlers {
   isDragOver: boolean;
@@ -14,7 +14,7 @@ interface DragAndDropHandlers {
 }
 
 export const useDragAndDrop = (): DragAndDropHandlers => {
-  const { addToCart } = useShopOperators();
+  const { addToCart } = useCartOperator();
 
   // Drag가 요소 위에 존재하는지 여부를 판단
   const [isDragOver, setIsDragOver] = useState(false);

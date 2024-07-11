@@ -17,7 +17,7 @@ interface Props {
   className?: string;
 }
 
-const ProductCard = memo((props: Props): ReactElement => {
+const ProductCard = (props: Props): ReactElement => {
   const { product, className } = props;
   const { handleDragStart } = useDragAndDrop();
 
@@ -38,6 +38,6 @@ const ProductCard = memo((props: Props): ReactElement => {
       <p className={'text-sm font-extrabold mt-5'}>{numToMoney(product.price)}원</p>
     </div>
   );
-});
+};
 
 export default ProductCard;

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useShopOperators } from '@/context';
+import { useCartOperator } from '@/context';
 
 import { CartItem } from '@/types';
 
@@ -13,7 +13,7 @@ interface Props {
 const CountOperator = (props: Props): ReactElement => {
   const { cartItem } = props;
 
-  const { increaseCount, decreaseCount } = useShopOperators();
+  const { increaseCount, decreaseCount } = useCartOperator();
 
   return (
     <div className={'w-[7rem] border-[1px] border-gray-200 flex items-center justify-between'}>

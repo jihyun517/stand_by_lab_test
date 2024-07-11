@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useShopState } from '@/context';
+import { useCartState } from '@/context';
 
 import numToMoney from '@/utils/num-to-money';
 import calcCheckoutInfo from '@/utils/calc-checkout-info';
@@ -8,7 +8,7 @@ import calcCheckoutInfo from '@/utils/calc-checkout-info';
 import OrderButton from '@/components/OrderButton';
 
 const Checkout = (): ReactElement => {
-  const { cart } = useShopState();
+  const { cart } = useCartState();
 
   const { totalAmount, discount, deliveryFee, finalAmount } = calcCheckoutInfo(cart);
 
